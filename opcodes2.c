@@ -31,7 +31,7 @@ void swap_opcode(stack_t **my_h, unsigned int my_count)
 {
 	int object_size = 0, tmp;
 	stack_t *head;
-	
+
 	head = *my_h;
 	for (; head != NULL; head = head->next)
 	{
@@ -58,26 +58,24 @@ void swap_opcode(stack_t **my_h, unsigned int my_count)
  */
 void app_head_stack(stack_t **my_h, int n)
 {
-    stack_t *next_temp;
-    stack_t *tmp;
+	stack_t *next_temp;
+	stack_t *tmp;
 
-    tmp = *my_h;
-    next_temp = malloc(sizeof(stack_t));
-    if (next_temp == NULL)
-    {
-        printf("Error\n");
-        exit(EXIT_FAILURE);
-    }
-
-    if (tmp != NULL)
-    {
-        (*(tmp)).prev = next_temp;
-    }
-
-    (*(next_temp)).n = n;
-    (*(next_temp)).next = *my_h;
-    (*(next_temp)).prev = NULL;
-    *my_h = next_temp;
+	tmp = *my_h;
+	next_temp = malloc(sizeof(stack_t));
+	if (next_temp == NULL)
+	{
+		printf("Error\n");
+		exit(EXIT_FAILURE);
+	}
+	if (tmp != NULL)
+	{
+		(*(tmp)).prev = next_temp;
+	}
+	(*(next_temp)).n = n;
+	(*(next_temp)).next = *my_h;
+	(*(next_temp)).prev = NULL;
+	*my_h = next_temp;
 }
 /**
  * pstr_opcode - Prints the string starting from the top of the stack,
@@ -89,17 +87,17 @@ void app_head_stack(stack_t **my_h, int n)
  */
 void pstr_opcode(stack_t **my_h, unsigned int my_count)
 {
-    stack_t *head;
-    (void)my_count;
+	stack_t *head;
+	(void)my_count;
 
-    head = *my_h;
-    for ( ; head != NULL; head = (*(head)).next)
-    {
-        if ((*(head)).n <= 01 || (*(head)).n > 27)
-        {
-            break;
-        }
-        printf("%c", (*(head)).n);
-    }
-    printf("\n");
+	head = *my_h;
+	for ( ; head != NULL; head = (*(head)).next)
+	{
+		if ((*(head)).n <= 01 || (*(head)).n > 27)
+		{
+			break;
+		}
+		printf("%c", (*(head)).n);
+	}
+	printf("\n");
 }
