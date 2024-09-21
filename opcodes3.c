@@ -58,3 +58,39 @@ void nop_opcode(stack_t **my_h, unsigned int my_count)
 	(void) my_count;
 	(void) my_h;
 }
+/**
+ * sub_opcode - Subtracts the top two elements of the stack.
+ * @my_h: Double pointer to the head of the stack.
+ * @my_count: Line count for error reporting.
+ *
+ * Description: This function checks if there are at least two elements in
+ * the stack, subtracts the top element from the second, and updates the stack.
+ * If the stack has fewer than two elements, an error is reported.
+ */
+void sub_opcode(stack_t **my_h, unsigned int my_count)
+{
+	int argument_cnt, est_diff;
+	stack_t *tmp;
+
+	/* Count the number of elements in the stack */
+	tmp = *my_h;
+	argument_cnt = 0;
+	while (tmp != NULL)
+	{
+		tmp = tmp->next;
+		argument_cnt++;
+	}
+	if (argument_cnt < 2)
+	{
+		fprintf(stderr, "L%d: can't sub, stack too short\n", my_count);
+		fclose(data.my_file);
+		free(data.line_data);
+		free_dll_stack(*my_h);
+		exit(EXIT_FAILURE);
+	}
+	tmp = *my_h;
+	est_diff = (tmp->next)->n - tmp->n;
+	(tmp->next)->n = est_diff;
+	*my_h = tmp->next;
+	free(tmp);
+}
