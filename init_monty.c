@@ -83,3 +83,29 @@ void rotl_opcode(stack_t **my_h, unsigned int my_count __attribute__((unused)))
 	(*(*my_h)).prev = temp;
 	*my_h = copy;
 }
+/**
+ * rotr_opcode - Rotates the stack so the bottom element moves to the top.
+ * @my_h: Double pointer to the first node of the stack.
+ * @my_count: Line number for error tracking (not used).
+ *
+ * Return: This function does not return any value.
+ */
+void rotr_opcode(stack_t **my_h, unsigned int my_count __attribute__((unused)))
+{
+	stack_t *struct_cpy;
+
+	struct_cpy = *my_h;
+	if (!(*(struct_cpy).next) || !(*my_h))
+	{
+		return;
+	}
+	for (; (*(struct_cpy).next); struct_cpy = (*(struct_cpy).next))
+	{
+		/* No body required, as we are iterating until the end */
+	}
+	(*(struct_cpy).next) = *my_h;
+	(*(struct_cpy).prev).next = NULL;
+	(*(struct_cpy).prev) = NULL;
+	(*(*my_h)).prev = struct_cpy;
+	*my_h = struct_cpy;
+}
