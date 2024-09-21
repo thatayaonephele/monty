@@ -57,3 +57,29 @@ int run_cmd(char *line_data, stack_t **stack, unsigned int my_count,
 
 	return (1);
 }
+/**
+ * rotl_opcode - Function that rotates the stack to the top.
+ * @my_h: Double pointer to the head of the stack.
+ * @my_count: Line count (unused).
+ *
+ * Return: Nothing.
+ */
+void rotl_opcode(stack_t **my_h, unsigned int my_count __attribute__((unused)))
+{
+	stack_t *copy, *temp = *my_h;
+
+	if ((*(temp).next) == NULL || *my_h == NULL)
+	{
+		return;
+	}
+	copy = (*(temp).next);
+	(*(copy).prev) = NULL;
+	for (; (*(temp).next) != NULL; temp = (*(temp).next))
+	{
+		/* No body required, as we are iterating until the end */
+	}
+	(*(temp).next) = *my_h;
+	(*(*my_h)).next = NULL;
+	(*(*my_h)).prev = temp;
+	*my_h = copy;
+}
