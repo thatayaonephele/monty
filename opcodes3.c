@@ -15,13 +15,13 @@ void pop_opcode(stack_t **my_h, unsigned int my_count)
 	if (*my_h == NULL)
 	{
 		fprintf(stderr, "L%u: can't pop an empty stack\n", my_count);
-		fclose(data->my_file);
-		free(data->line_data);
+		fclose(data.my_file);
+		free(data.line_data);
 		free_dll_stack(*my_h);
 		exit(EXIT_FAILURE);
 	}
 	head = *my_h;
-	*my_h = head.next;
+	*my_h = head->next;
 	free(head);
 }
 /**
@@ -37,12 +37,12 @@ void pint_opcode(stack_t **my_h, unsigned int my_count)
 	if (*my_h == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", my_count);
-		fclose(data->my_file);
-		free(data->line_data);
+		fclose(data.my_file);
+		free(data.line_data);
 		free_dll_stack(*my_h);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", *(my_h).n);
+	printf("%d\n", (*my_h)->n);
 }
 /**
  * nop_opcode - A function that performs no action.

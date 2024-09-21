@@ -18,8 +18,8 @@ int run_cmd(char *line_data, stack_t **stack, unsigned int my_count,
 {
 	instruction_t opst[] = {
 		{"push", push_opcode}, {"pall", pall_opcode}, {"pint", pint_opcode},
-		{"pop", pop_opcode}, {"swap", swap_opcode}, {"add", f_add},
-		{"nop", f_nop}, {"sub", sub_opcode}, {"div", div_opcode},
+		{"pop", pop_opcode}, {"swap", swap_opcode}, {"add", add_opcode},
+		{"nop", nop_opcode}, {"sub", sub_opcode}, {"div", div_opcode},
 		{"mul", mul_opcode}, {"mod", mod_opcode}, {"pchar", pchar_opcode},
 		{"pstr", pstr_opcode}, {"rotl", rotl_opcode}, {"rotr", rotr_opcode},
 		{"queue", set_mode_to_queue}, {"stack", set_mode_to_lifo}, {NULL, NULL}
@@ -68,17 +68,17 @@ void rotl_opcode(stack_t **my_h, unsigned int my_count __attribute__((unused)))
 {
 	stack_t *copy, *temp = *my_h;
 
-	if ((*(temp).next) == NULL || *my_h == NULL)
+	if (((temp->next) == NULL || *my_h == NULL))
 	{
 		return;
 	}
-	copy = (*(temp).next);
-	(*(copy).prev) = NULL;
-	for (; (*(temp).next) != NULL; temp = (*(temp).next))
+	copy = (temp->next);
+	(copy->prev) = NULL;
+	for (; (temp->next) != NULL; temp = (temp->next))
 	{
 		/* No body required, as we are iterating until the end */
 	}
-	(*(temp).next) = *my_h;
+	(temp->next) = *my_h;
 	(*(*my_h)).next = NULL;
 	(*(*my_h)).prev = temp;
 	*my_h = copy;
@@ -95,17 +95,17 @@ void rotr_opcode(stack_t **my_h, unsigned int my_count __attribute__((unused)))
 	stack_t *struct_cpy;
 
 	struct_cpy = *my_h;
-	if (!(*(struct_cpy).next) || !(*my_h))
+	if (struct_cpy->next == NULL || my_h == NULL)
 	{
 		return;
 	}
-	for (; (*(struct_cpy).next); struct_cpy = (*(struct_cpy).next))
+	for (; struct_cpy->next; struct_cpy = struct_cpy->next)
 	{
 		/* No body required, as we are iterating until the end */
 	}
-	(*(struct_cpy).next) = *my_h;
-	(*(struct_cpy).prev).next = NULL;
-	(*(struct_cpy).prev) = NULL;
+	struct_cpy->next = *my_h;
+	struct_cpy->prev->next = NULL;
+	struct_cpy->prev = NULL;
 	(*(*my_h)).prev = struct_cpy;
 	*my_h = struct_cpy;
 }
