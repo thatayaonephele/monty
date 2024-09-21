@@ -109,3 +109,35 @@ void rotr_opcode(stack_t **my_h, unsigned int my_count __attribute__((unused)))
 	(*(*my_h)).prev = struct_cpy;
 	*my_h = struct_cpy;
 }
+/**
+ * pchar_opcode - Outputs the character stored at the top of the stack,
+ *                followed by a new line.
+ * @my_h: Double pointer to the head of the stack.
+ * @my_count: Line number for error handling.
+ *
+ * Return: None.
+ */
+
+void pchar_opcode(stack_t **my_h, unsigned int my_count)
+{
+	stack_t *head;
+
+	head = *my_h;
+	if (head == NULL)
+	{
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", my_count);
+		fclose(data.my_file);
+		free(data.line_data);
+		free_dll_stack(*my_h);
+		exit(EXIT_FAILURE);
+	}
+	if ((*(head)).n < 0 || (*(head)).n > 127)
+	{
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", my_count);
+		fclose(data.my_file);
+		free(data.line_data);
+		free_dll_stack(*my_h);
+		exit(EXIT_FAILURE);
+	}
+	printf("%c\n", (*(head)).n);
+}
