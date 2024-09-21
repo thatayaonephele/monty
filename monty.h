@@ -1,6 +1,8 @@
 #ifndef TADEM_H
 #define TADEM_H
 
+
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
