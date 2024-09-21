@@ -94,3 +94,36 @@ void sub_opcode(stack_t **my_h, unsigned int my_count)
 	*my_h = tmp->next;
 	free(tmp);
 }
+/**
+ * add_opcode - Adds the top two elements of the stack.
+ * @my_h: Double pointer to the head of the stack.
+ * @my_count: Line count for error reporting.
+ *
+ * Description: This function checks if there are at least two elements in
+ * the stack, adds the top two elements, and updates the stack. If the stack
+ * has fewer than two elements, an error is reported.
+ */
+void add_opcode(stack_t **my_h, unsigned int my_count)
+{
+	int tmp, length = 0;
+	stack_t *head;
+
+	/* Count the number of elements in the stack */
+	for (head = *my_h; head != NULL; head = head->next)
+		length++;
+
+	if (length < 2)
+	{
+		fprintf(stderr, "L%d: can't add, stack too short\n", my_count);
+		fclose(data.my_file);
+		free(data.line_data);
+		free_dll_stack(*my_h);
+		exit(EXIT_FAILURE);
+	}
+
+	head = *my_h;
+	tmp = (*(head)).n + (*(head->next)).n;
+	(*(head->next)).n = tmp;
+	*my_h = (*(head)).next;
+	free(head);
+}
