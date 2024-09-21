@@ -49,3 +49,45 @@ void app_tail_queue(stack_t **my_h, int n)
 		latest_node->prev = tmp;
 	}
 }
+/**
+ * mod_opcode - Computes the remainder of the division of the 2ndtop element
+ * by the top element of the stack.
+ * @my_h: Double pointer to the head of the stack.
+ * @my_count: Line count for error reporting.
+ *
+ * of the stack is divided by the top element. If the stack has fewer than two
+ * elements, or if the top element is zero, an error is reported.
+ */
+void mod_opcode(stack_t **my_h, unsigned int my_count)
+{
+	int tmp, length = 0;
+	stack_t *head;
+
+	/* Count the number of elements in the stack */
+	for (head = *my_h; head != NULL; head = head->next)
+		length++;
+
+	if (length < 2)
+	{
+		fprintf(stderr, "L%d: can't mod, stack too short\n", my_count);
+		fclose(data.my_file);
+		free(data.line_data);
+		free_dll_stack(*my_h);
+		exit(EXIT_FAILURE);
+	}
+
+	head = *my_h;
+	if ((*(head)).n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", my_count);
+		fclose(data.my_file);
+		free(data.line_data);
+		free_dll_stack(*my_h);
+		exit(EXIT_FAILURE);
+	}
+
+	tmp = (*(head->next)).n % (*(head)).n;
+	(*(head->next)).n = tmp;
+	*my_h = (*(head)).next;
+	free(head);
+}
