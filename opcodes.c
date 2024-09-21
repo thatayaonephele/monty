@@ -133,3 +133,34 @@ void div_opcode(stack_t **my_h, unsigned int my_count)
 	*my_h = (*(head)).next;
 	free(head);
 }
+/**
+ * mul_opcode - Multiplies the top two elements of the stack.
+ * @my_h: Double pointer to the head of the stack.
+ * @my_count: Line count for error reporting.
+ *
+ * & updates the stack. If there are < 2 elements, an error is reported.
+ */
+void mul_opcode(stack_t **my_h, unsigned int my_count)
+{
+	stack_t *head;
+	int tmp, length = 0;
+
+	/* Count the number of elements in the stack */
+	for (head = *my_h; head != NULL; head = head->next)
+		length++;
+
+	if (length < 2)
+	{
+		fprintf(stderr, "L%d: can't mul, stack too short\n", my_count);
+		fclose(data.my_file);
+		free(data.line_data);
+		free_dll_stack(*my_h);
+		exit(EXIT_FAILURE);
+	}
+
+	head = *my_h;
+	tmp = (*(head->next)).n * (*(head)).n;
+	(*(head->next)).n = tmp;
+	*my_h = (*(head)).next;
+	free(head);
+}
